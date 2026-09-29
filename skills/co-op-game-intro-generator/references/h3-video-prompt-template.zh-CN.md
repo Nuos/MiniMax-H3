@@ -6,7 +6,7 @@
 
 ### 01｜方法
 
-**词汇释义**：principle /ˈprɪnsəpəl/ n. 原则；confirmation image /ˌkɒnfəˈmeɪʃən/ n. phr. 确认图；fixed framework /fɪkst ˈfreɪmwɜːk/ n. phr. 固定框架；dynamic /daɪˈnæmɪk/ adj. 动态的；identity /aɪˈdentəti/ n. 身份；palette-linked /ˈpælət lɪŋkt/ adj. 与配色联动的；UI abbr. User Interface，用户界面。
+**词汇释义**：principle /ˈprɪnsəpəl/ n. 原则；confirmation image /ˌkɒnfəˈmeɪʃən ˈɪmɪdʒ/ n. phr. 确认图；fixed framework /fɪkst ˈfreɪmwɜːk/ n. phr. 固定框架；dynamic /daɪˈnæmɪk/ adj. 动态的；identity /aɪˈdentəti/ n. 身份；palette-linked /ˈpælət lɪŋkt/ adj. 与配色联动的；UI abbr. User Interface，用户界面。
 
 **译文**：采用与 GPT 确认图提示词相同的方法：**固定的视频事件框架＋按用户风格动态填充＋锁定人物身份＋与配色联动的界面系统。**
 
