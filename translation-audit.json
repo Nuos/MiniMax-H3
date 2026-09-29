@@ -1,0 +1,97 @@
+{
+  "schema_version": "1.0.0",
+  "audit_version": "0.2.0",
+  "audit_date": "2026-09-28",
+  "repository": "Nuos/MiniMax-H3",
+  "branch": "main",
+  "source_baseline_commit": "d21241f0a4b3acbb34c97dae47fa417b7065e438",
+  "audit_start_commit": "10298b2556e953ffb1890f0a14cc4dfd8e14cd0d",
+  "checked_translation_content_commit": "ac7cc8552d1ed4cc4befcadeb48d5da9ede9c3c1",
+  "overall_status": "NOT_PASSED",
+  "status_semantics": {
+    "present": "A colocated annotated translation exists; this does not certify exhaustive semantic or IPA correctness.",
+    "present_with_open_errata": "Translation exists, with published corrections not yet applied to its body.",
+    "missing": "No new annotated translation exists; pre-existing Chinese translations do not satisfy this status."
+  },
+  "counts": {
+    "baseline_md_txt_file_positions": 47,
+    "human_readable_translation_targets": 27,
+    "translations_present_at_audit_start": 17,
+    "translations_present_at_checked_commit": 22,
+    "translations_missing": 5,
+    "preexisting_language_versions_preserved": 11,
+    "machine_data_files_excluded": 9,
+    "source_files_modified": 0,
+    "source_files_deleted": 0,
+    "source_files_renamed": 0
+  },
+  "verification": {
+    "inventory_basis": "GitHub recursive tree for the fixed baseline, truncated=false; continued resource reading used for the long response.",
+    "source_protection_basis": "GitHub compare from source_baseline_commit to checked_translation_content_commit: 22 added translation files only.",
+    "colocation_and_unique_inventory_structure_checked": true,
+    "all_source_paragraphs_individually_mapped": false,
+    "all_ipa_entries_independently_dictionary_checked": false,
+    "all_markdown_browser_rendered": false,
+    "model_generation_or_installation_tested": false,
+    "paid_generation_api_called": false
+  },
+  "corrected_reference_guide_blob": "8422578125b80317af545b8e0c6889e2dfce764a",
+  "items": [
+    {"source":"README.md","translation":"README.annotated.zh-CN.md","source_blob":"bdfd2473d24434599913d8d9edb9b96a6dc13603","status":"present_with_open_errata","issues":["README-R01","README-R02"]},
+    {"source":"requirements.txt","translation":"requirements.zh-CN.txt","source_blob":"7f5c20cc4209924d4b3db2f29b0df8b5e0496270","status":"present","note":"Dependency declarations retained; runtime compatibility not certified."},
+    {"source":"skills/README.md","translation":"skills/README.zh-CN.md","source_blob":"c030de54dbc0798e680140b657fc7c79e9ef9a48","status":"present"},
+    {"source":"skills/h3-prompt-writing/SKILL.md","translation":"skills/h3-prompt-writing/SKILL.zh-CN.md","source_blob":"b6d9b2839384a588763a9c24315225dd8ce19d56","status":"present","note":"Includes Tips for Better Results, unlike the two agent copies."},
+    {"source":"skills/h3-prompt-writing/references/base-en.txt","translation":"skills/h3-prompt-writing/references/base-en.zh-CN.txt","source_blob":"40cf586a634d677d6b7107b367cf0ec9621be728","status":"present"},
+    {"source":"skills/h3-prompt-writing/references/ref-en.txt","translation":"skills/h3-prompt-writing/references/ref-en.zh-CN.txt","source_blob":"7ae1b2d07d743fd2392258a96449be9e9e322d35","status":"present","translation_blob":"8422578125b80317af545b8e0c6889e2dfce764a","fixed_issues":["REF-EXAMPLE-51","REF-SENTENCE-49"]},
+    {"source":".agents/skills/h3-prompt-writing/SKILL.md","translation":".agents/skills/h3-prompt-writing/SKILL.zh-CN.md","source_blob":"066429d78f72b080a52350a5b165e52cb31b0bca","status":"present","note":"No Tips section in this source version; do not copy the root skill translation indiscriminately."},
+    {"source":".agents/skills/h3-prompt-writing/references/base-en.txt","translation":".agents/skills/h3-prompt-writing/references/base-en.zh-CN.txt","source_blob":"40cf586a634d677d6b7107b367cf0ec9621be728","status":"present"},
+    {"source":".agents/skills/h3-prompt-writing/references/ref-en.txt","translation":".agents/skills/h3-prompt-writing/references/ref-en.zh-CN.txt","source_blob":"7ae1b2d07d743fd2392258a96449be9e9e322d35","status":"present","translation_blob":"8422578125b80317af545b8e0c6889e2dfce764a","fixed_issues":["REF-EXAMPLE-51","REF-SENTENCE-49"]},
+    {"source":".claude/skills/h3-prompt-writing/SKILL.md","translation":".claude/skills/h3-prompt-writing/SKILL.zh-CN.md","source_blob":"066429d78f72b080a52350a5b165e52cb31b0bca","status":"present","note":"No Tips section in this source version."},
+    {"source":".claude/skills/h3-prompt-writing/references/base-en.txt","translation":".claude/skills/h3-prompt-writing/references/base-en.zh-CN.txt","source_blob":"40cf586a634d677d6b7107b367cf0ec9621be728","status":"present"},
+    {"source":".claude/skills/h3-prompt-writing/references/ref-en.txt","translation":".claude/skills/h3-prompt-writing/references/ref-en.zh-CN.txt","source_blob":"7ae1b2d07d743fd2392258a96449be9e9e322d35","status":"present","translation_blob":"8422578125b80317af545b8e0c6889e2dfce764a","fixed_issues":["REF-EXAMPLE-51","REF-SENTENCE-49"]},
+    {"source":"skills/3d-animation-short-generator/SKILL.md","translation":"skills/3d-animation-short-generator/SKILL.zh-CN.md","source_blob":"6ddc1102a8c353b4be4c939444b24f62e5552cde","status":"present","recovered_in_commit":"701d1fea719efd23a4eac1dcb749cf27e119953a"},
+    {"source":"skills/3d-animation-short-generator/references/fallback-policy.md","translation":"skills/3d-animation-short-generator/references/fallback-policy.zh-CN.md","source_blob":"ec8753c963f1b9c305549512c8a30f1ee03d868b","status":"present"},
+    {"source":"skills/3d-animation-short-generator/references/model-selection.md","translation":"skills/3d-animation-short-generator/references/model-selection.zh-CN.md","source_blob":"48730351c215e0e591ce9f2ae68838fcbf52eb94","status":"present","note":"Price and capability comparisons are translated historical source statements, not current verified recommendations."},
+    {"source":"skills/3d-animation-short-generator/references/qc-checklist.md","translation":"skills/3d-animation-short-generator/references/qc-checklist.zh-CN.md","source_blob":"72bbee119d00dac548e06a34e301c386935d33a5","status":"present"},
+    {"source":"skills/3d-animation-short-generator/references/shot-table-spec.md","translation":"skills/3d-animation-short-generator/references/shot-table-spec.zh-CN.md","source_blob":"417405085fd3739c105482108f655c3eee2fde75","status":"present"},
+    {"source":"skills/3d-animation-short-generator/references/storyboard-guidelines.md","translation":"skills/3d-animation-short-generator/references/storyboard-guidelines.zh-CN.md","source_blob":"a8639b854041cfb5fc95cd8e020ad5b4c0ffebc1","status":"present"},
+    {"source":"skills/co-op-game-intro-generator/SKILL.md","translation":"skills/co-op-game-intro-generator/SKILL.zh-CN.md","source_blob":"3b10d360e35b8a9be6b7233df0273107f9342849","status":"present","recovered_in_commit":"701d1fea719efd23a4eac1dcb749cf27e119953a"},
+    {"source":"skills/co-op-game-intro-generator/references/h3-confirmation-image-template.md","translation":"skills/co-op-game-intro-generator/references/h3-confirmation-image-template.zh-CN.md","source_blob":"9f12841baab1e6de990c753e9659d41efe8fb0b5","status":"present","added_in_commit":"f9e103a7838d4541ac9ea54943a6b458543ac10d","note":"Actual English source; single-brace variables retained. Conditional glasses wording corrected."},
+    {"source":"skills/co-op-game-intro-generator/references/h3-video-prompt-template.md","translation":"skills/co-op-game-intro-generator/references/h3-video-prompt-template.zh-CN.md","source_blob":"9eaaa0dcd5d63be0f388434343f6c76b8bb56523","status":"present","translation_blob":"d7eedaedb9ded5c6a716939acbaf7f118fe3f21d","added_in_commit":"f9e103a7838d4541ac9ea54943a6b458543ac10d","note":"Actual 15-second six-stage source, not an 8-second static-menu rewrite."},
+    {"source":"skills/handdrawn-live-video-generator/SKILL.md","translation":"skills/handdrawn-live-video-generator/SKILL.zh-CN.md","source_blob":"53fd20efaef4f7347c529d2260a96b41cc214125","status":"present","recovered_in_commit":"701d1fea719efd23a4eac1dcb749cf27e119953a"},
+    {"source":"skills/minimalist-product-ad-generator/SKILL.md","translation":"skills/minimalist-product-ad-generator/SKILL.zh-CN.md","source_blob":"7c950cb9374eed4b70e8c984ab89e4888dccfc6f","status":"missing"},
+    {"source":"skills/brand-promo-video-generator/SKILL.md","translation":"skills/brand-promo-video-generator/SKILL.zh-CN.md","source_blob":"264eb80b6b02712e5db5fe0b3506b14d437c06c6","status":"missing"},
+    {"source":"skills/music-video-subtitle-generator/SKILL.md","translation":"skills/music-video-subtitle-generator/SKILL.zh-CN.md","source_blob":"522b2045675c86b04e10056fa2c690121f0ef093","status":"missing"},
+    {"source":"skills/paper-collage-explainer-generator/SKILL.md","translation":"skills/paper-collage-explainer-generator/SKILL.zh-CN.md","source_blob":"473b6aee252735fae1f20f096064a6edbbad6708","status":"missing","note":"An earlier failed draft with a different source blob is not this file's translation."},
+    {"source":"skills/papercraft-stop-motion-explainer/SKILL.md","translation":"skills/papercraft-stop-motion-explainer/SKILL.zh-CN.md","source_blob":"536ee4f2ffa3593cf744f85566492ddf270062d9","status":"missing"}
+  ],
+  "machine_data_exclusions": {
+    "reason": "Tokenizer merge rules, not natural-language documentation; do not translate or change these data files.",
+    "shared_source_blob": "20024bfe7c83998e9aeaf98a0cd6a2ce6306c2f0",
+    "paths": [
+      "processor/merges.txt", "text_encoder/merges.txt", "tokenizer/merges.txt",
+      "FL2VA/processor/merges.txt", "FL2VA/text_encoder/merges.txt", "FL2VA/tokenizer/merges.txt",
+      "Ref2VA/processor/merges.txt", "Ref2VA/text_encoder/merges.txt", "Ref2VA/tokenizer/merges.txt"
+    ]
+  },
+  "preexisting_language_versions_preserved": [
+    "README.zh-CN.md", "README.ja.md", "README.ko.md",
+    "skills/3d-animation-short-generator/SKILL.cn.md",
+    "skills/brand-promo-video-generator/SKILL.cn.md",
+    "skills/co-op-game-intro-generator/SKILL.cn.md",
+    "skills/handdrawn-live-video-generator/SKILL.cn.md",
+    "skills/minimalist-product-ad-generator/SKILL.cn.md",
+    "skills/music-video-subtitle-generator/SKILL.cn.md",
+    "skills/paper-collage-explainer-generator/SKILL.cn.md",
+    "skills/papercraft-stop-motion-explainer/SKILL.cn.md"
+  ],
+  "open_issues": [
+    {"id":"MISSING-TRANSLATIONS","status":"open","affected_source_count":5,"details":"Five main Skill files still lack new annotated translations."},
+    {"id":"README-R01","status":"errata_published_body_not_patched","file":"README.annotated.zh-CN.md","section":"P71","source_phrase":"smiles broadly","incorrect_translation":"大笑","correction":"露出灿烂的笑容","errata_file":"README.annotated.zh-CN.errata.md"},
+    {"id":"README-R02","status":"errata_published_body_not_patched","file":"README.annotated.zh-CN.md","section":"P67","details":"Protect [Shot 1] and <Picture 1> with inline code; Markdown display risk not browser-tested.","errata_file":"README.annotated.zh-CN.errata.md"},
+    {"id":"PARAGRAPH-ALIGNMENT","status":"not_certified","details":"An exhaustive independently checked source-paragraph to translation-paragraph map is not yet available."},
+    {"id":"IPA-FULL-CHECK","status":"not_certified","details":"Targeted lexical corrections were made; a complete independent dictionary verification of every IPA entry was not performed."}
+  ],
+  "report": "TRANSLATION_AUDIT.zh-CN.md",
+  "errata": "README.annotated.zh-CN.errata.md"
+}
