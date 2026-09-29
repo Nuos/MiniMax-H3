@@ -6,7 +6,7 @@
 
 ### 01｜方法
 
-**词汇释义**：principle /ˈprɪnsəpəl/ n. 原则；confirmation image /ˌkɒnfəˈmeɪʃən ˈɪmɪdʒ/ n. phr. 确认图；fixed framework /fɪkst ˈfreɪmwɜːk/ n. phr. 固定框架；dynamic /daɪˈnæmɪk/ adj. 动态的；identity /aɪˈdentəti/ n. 身份；palette-linked /ˈpælət lɪŋkt/ adj. 与配色联动的；UI abbr. User Interface，用户界面。
+**词汇释义**：principle /ˈprɪnsəpəl/ n. 原则；confirmation image /ˌkɒnfəˈmeɪʃən/ n. phr. 确认图；fixed framework /fɪkst ˈfreɪmwɜːk/ n. phr. 固定框架；dynamic /daɪˈnæmɪk/ adj. 动态的；identity /aɪˈdentəti/ n. 身份；palette-linked /ˈpælət lɪŋkt/ adj. 与配色联动的；UI abbr. User Interface，用户界面。
 
 **译文**：采用与 GPT 确认图提示词相同的方法：**固定的视频事件框架＋按用户风格动态填充＋锁定人物身份＋与配色联动的界面系统。**
 
@@ -36,7 +36,7 @@
 
 **词汇释义**：identity anchor /aɪˈdentəti ˈæŋkə/ n. phr. 身份锚点；hairstyle /ˈheəstaɪl/ n. 发型；facial proportion /ˈfeɪʃəl prəˈpɔːʃən/ n. phr. 五官比例；nickname mapping /ˈnɪkneɪm ˈmæpɪŋ/ n. phr. 昵称映射。
 
-**译文**：`{player1_ref}`：PLAYER 1 的身份锚点。锁定准确面孔、发型、眼镜（有时）、五官比例、身体身份特征，以及与 `{player1_name}` 的昵称对应关系。
+**译文**：`{player1_ref}`：PLAYER 1 的身份锚点。锁定准确面孔、发型、眼镜（如有）、五官比例、身体身份特征，以及与 `{player1_name}` 的昵称对应关系。
 
 ### 06｜玩家二身份参考
 
@@ -209,3 +209,5 @@
 本源模板是 **15 秒、六时间段、装备配置后进入城市世界** 的方案，不是 8 秒静态菜单微动方案。时间段为 0–2、2–4、4–7、7–8.5、8.5–10、10–15 秒；PLAYER 1 配置右臂，PLAYER 2 配置左臂；最后两人起身、摄影机下降绕后并跟拍。不得以“不站起”“不换到游戏世界”“镜头不环绕”替换这些源动作。
 
 源文一方面要求全局配色服从用户风格，另一方面在 8.5–10 秒段固定写“黄色平面环境”；这一张力按原文保留，实际改编时另行决策。源文要求玩家保持左右关系，同时安排局部环绕机位；实际制作仍需做轴线检查，翻译不自动证明空间连续性已经通过。`ARMAMENT CUSTOMIZATION` 作为界面原文保留，但源文最后明确禁止武器，不能把它擅自扩写成武器展示。
+
+**复核修订 v0.2.0**：第 05 单元的 `glasses if present` 校正为“眼镜（如有）”，不再误写成“有时”。

@@ -4,6 +4,7 @@ Full-Reference Mode Rewrite Output Format Guide
 源文件：同目录 ref-en.txt
 源版本：d21241f0a4b3acbb34c97dae47fa417b7065e438
 源 Git blob：7ae1b2d07d743fd2392258a96449be9e9e322d35
+校对版本：v0.2.0，2026-09-28。
 
 说明：按原文章节、段落与列表次序，先释义，再作完整简体中文翻译。英文全文保留在相邻源文件；字段、固定标记、标签、时间与对白原样保留。例子的中文正文供学习，不是可替代英文输出规则的运行提示词。词性：n. 名词；v. 动词；adj. 形容词；adv. 副词；n. phr. 名词短语；v. phr. 动词短语；abbr. 缩写。
 
@@ -48,7 +49,7 @@ non_diegetic_music：描述只有观众能听到的背景音乐。
 <Audio N>：被复制或参考的音频信号。
 
 【07｜标签意义一致】
-词汇：assign /əˈsaɪn/ v. 分配；meaning /ˈmiːnɪŋ/ n. 含义；consistent /kənˈsɪstənt/ adj. 一致的；across /əˈkrɒs/ 在此不单列介词释义。
+词汇：assign /əˈsaɪn/ v. 分配；meaning /ˈmiːnɪŋ/ n. 含义；consistent /kənˈsɪstənt/ adj. 一致的。
 译文：一旦为某项内容分配参考标签，它在 subject_definitions、summary、retention_analysis、detailed_description 和音频部分中都保持相同含义。
 
 【08｜每个独立参考项怎样定义】
@@ -301,7 +302,7 @@ the shot ends on <Picture 3>＝镜头以 <Picture 3> 结束。
 词汇：physically /ˈfɪzɪkəli/ adv. 实际地；retain /rɪˈteɪn/ v. 保留；visual reference /ˈvɪʒuəl ˈrefərəns/ n. phr. 视觉参考；speaker ID /ˈspiːkə aɪ diː/ n. phr. 发声者标识；grandfather /ˈɡrænfɑːðə/ n. 祖父、外祖父。
 译文：基础发声者编号与 <d> 格式遵循 T2VA。参考主体实际说话时，同时保留视觉参考标签和发声者编号：
 <Subject 2> (S1) turns toward the woman and says, <d>[English] Last summer, I went to my grandfather's house. He talked about you.</d>
-中文含义：<Subject 2> (S1) 转向女子说话。台词释义：“去年夏天，我去了祖父家。他谈到了你。”原文 grandfather 不区分父系与母系；此处采用一般译法。
+中文含义：<Subject 2> (S1) 转向女子，说：“去年夏天，我去了祖父家。他谈到了你。”原文 grandfather 不区分父系与母系；此处采用一般译法。英文台词和 <d> 块仍以上方原例为准。
 
 【50｜Subject 与 Sx 的分工】
 词汇：identify /aɪˈdentɪfaɪ/ v. 标识；actual /ˈæktʃuəl/ adj. 实际的；off-screen /ˌɒfˈskriːn/ adj. 画外的；correspond /ˌkɒrɪˈspɒnd/ v. 对应；stable voice description /ˈsteɪbəl vɔɪs dɪˈskrɪpʃən/ n. phr. 稳定的声音描述。
@@ -310,7 +311,10 @@ the shot ends on <Picture 3>＝镜头以 <Picture 3> 结束。
 【51｜复用配乐中的人声提示不另造发声者】
 词汇：verbal /ˈvɜːbəl/ adj. 语言的；cue /kjuː/ n. 提示点；BGM abbr. Background Music，背景音乐；soundtrack /ˈsaʊndtræk/ n. 声轨；narrator /nəˈreɪtə/ n. 叙述者；independent /ˌɪndɪˈpendənt/ adj. 独立的；invent /ɪnˈvent/ v. 凭空增加；gesture /ˈdʒestʃə/ n. 手势。
 译文：语言内容只是直接复用的背景音乐或完整声轨中的提示点，而没有具体人物、角色、叙述者或其他独立发声来源实际发出它时，使用 <Audio N> 标识可听见的来源，不凭空新增 (Sx)。若声音由具体人物、角色、叙述者或其他独立发声来源产生，则为该来源分配并复用 (Sx)。
-源例说明：当 <Audio 1> 播放到源文件指定的歌词句时，<Subject 1> 做对应手势，并不因此成为单独的发声来源。原歌词及 <d> 标记见相邻 ref-en.txt 的本节原例；本学习译文不改变歌词或将其重写为新对白。
+
+词汇：reach /riːtʃ/ v. 到达，此处指播放至；phrase /freɪz/ n. 语句；lonely /ˈləʊnli/ adj. 孤独的；perform /pəˈfɔːm/ v. 做出、表演；corresponding /ˌkɒrɪˈspɒndɪŋ/ adj. 对应的；separate speaker source /ˈsepərət ˈspiːkə sɔːs/ n. phr. 独立发声来源。
+原例：When <Audio 1> reaches the phrase <d>[English] I'm lonely lonely lonely lonely lonely I'm lonely</d>, <Subject 1> performs the corresponding hand gesture without becoming a separate speaker source.
+译文：当 <Audio 1> 播放到上述表示“我很孤独”的重复歌词时，<Subject 1> 做出对应手势，但不因此成为独立的发声来源。该例的语言内容来自复用音轨，不是执行手势的人物在另行发声；因此不新增 (Sx)。
 
 【52｜直接复用或重新演绎的对白与歌词】
 词汇：reperformance /ˌriːpəˈfɔːməns/ n. 重新演绎；exact /ɪɡˈzækt/ adj. 精确的；unintelligible /ˌʌnɪnˈtelɪdʒəbəl/ adj. 听不清、无法理解的；span /spæn/ n. 片段；guess /ɡes/ v. 猜测；paraphrase /ˈpærəfreɪz/ v. 换言改述；standardize /ˈstændədaɪz/ v. 规范化；punctuation /ˌpʌŋktʃuˈeɪʃən/ n. 标点；tilde /ˈtɪldə/ n. 波浪号；decorative /ˈdekərətɪv/ adj. 装饰性的；exclamation /ˌekskləˈmeɪʃən/ n. 感叹句。
@@ -413,7 +417,7 @@ the shot ends on <Picture 3>＝镜头以 <Picture 3> 结束。
 台词释义：“好吧，至少他品味不错。”
 
 【72｜overall_soundscape：示例声景】
-词汇：soft /sɒft/ adj. 轻柔的；indoor /ˈɪndɔː/ adj. 室内的；room tone /ruːm təʊn/ n. phr. 环境底声；throughout /θruːˈaʊt/ 此处不单列介词释义。
+词汇：soft /sɒft/ adj. 轻柔的；indoor /ˈɪndɔː/ adj. 室内的；room tone /ruːm təʊn/ n. phr. 环境底声。
 译文：柔和的室内咖啡馆环境底声贯穿整个场景。
 
 【73｜non_diegetic_music：示例配乐】
@@ -421,3 +425,5 @@ the shot ends on <Picture 3>＝镜头以 <Picture 3> 结束。
 译文：N/A，即没有画外配乐。
 
 译注：基础指南要求逐字保留用户台词与标点；本指南第 5.4 节对参考音频转写另外规定了基础标点规范化。译本分别保留两处原有规则，没有擅自合并成一条新规则。源文完整示例中标记、人物编号、素材编号与切镜时刻在本译本中保持对应。
+
+校对记录：v0.2.0 补回第 51 单元此前只作转述的完整格式示例及对应词汇；第 49 单元补成完整句义；删除第 07、72 单元不必要的介词词条。其余原有正文和术语保留，源文件未修改。
