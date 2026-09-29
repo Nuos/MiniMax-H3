@@ -1,0 +1,320 @@
+视频提示词编写指南（T2VA／I2VA／FL2VA／L2VA）｜逐段注释译本
+
+源文件：同目录 base-en.txt
+源版本：d21241f0a4b3acbb34c97dae47fa417b7065e438
+源 Git blob：40cf586a634d677d6b7107b367cf0ec9621be728
+
+阅读说明：按原文章节、段落和列表顺序编排；每段先给出词汇释义，再给出完整译文。原始英文正文保留在相邻源文件中；本文件保留格式模板、字段名、引用标签、时间、对白及画内文字，不替换源文件。示例的中文叙述供理解，不应把学习译文误当作符合“英文输出”要求的最终模型提示词。n. 名词；v. 动词；adj. 形容词；adv. 副词；n. phr. 名词短语；v. phr. 动词短语；abbr. 缩写。缩写读法按字母或全称理解。
+
+一、Task Overview｜任务概述
+
+【01｜T2VA】
+词汇：T2VA abbr. Text-to-Video-and-Audio，文生音视频；build /bɪld/ v. 构建；complete /kəmˈpliːt/ adj. 完整的；audiovisual /ˌɔːdiəʊˈvɪʒuəl/ adj. 视听的；timeline /ˈtaɪmlaɪn/ n. 时间线。
+译文：T2VA：从文本构建完整的视听时间线。
+
+【02｜I2VA】
+词汇：I2VA abbr. Image-to-Video-and-Audio，图生音视频；body /ˈbɒdi/ n. 正文；instruction /ɪnˈstrʌkʃən/ n. 指令；visual /ˈvɪʒuəl/ adj. 视觉的；path /pɑːθ/ n. 路径；develop /dɪˈveləp/ v. 展开；forward /ˈfɔːwəd/ adv. 向前、向后续时间推进。
+译文：I2VA：T2VA 正文，加上首帧指令，以及从首帧向后续时刻展开的视觉变化路径。
+
+【03｜FL2VA】
+词汇：FL2VA abbr. First-and-Last-Frame-to-Video-and-Audio，首尾帧生音视频；frame /freɪm/ n. 帧；continuous /kənˈtɪnjuəs/ adj. 连续的；path /pɑːθ/ n. 变化路径。
+译文：FL2VA：T2VA 正文，加上首尾帧指令，以及从首帧到尾帧的连续变化路径。
+
+【04｜L2VA】
+词汇：L2VA abbr. Last-Frame-to-Video-and-Audio，尾帧生音视频；converge /kənˈvɜːdʒ/ v. 逐步趋近、收敛；plausible /ˈplɔːzəbəl/ adj. 合理可信的；preceding /prɪˈsiːdɪŋ/ adj. 先前的；state /steɪt/ n. 状态。
+译文：L2VA：T2VA 正文，加上尾帧指令，以及从合理的先前状态逐步趋近尾帧的变化路径。
+
+二、Final Prompt Structure｜最终提示词结构
+
+2.1 Part One Is the Instruction｜第一部分为指令
+
+【05｜T2VA 的开头】
+词汇：image-alignment /ˈɪmɪdʒ əˈlaɪnmənt/ n. phr. 图像对齐；instruction /ɪnˈstrʌkʃən/ n. 指令；directly /dəˈrektli/ adv. 直接地；core /kɔː/ adj. 核心的；field /fiːld/ n. 字段。
+译文：T2VA 没有图像对齐指令，直接从三个核心字段开始。
+
+【06｜I2VA 的固定指令】
+词汇：target /ˈtɑːɡɪt/ adj. 目标的；fully /ˈfʊli/ adv. 完全地；reference /ˈrefərəns/ v. 参考；shot /ʃɒt/ n. 镜头。
+原模板：
+For the target video, at 0.00 seconds into the target video, <Picture 1> (from [Shot 1]) is fully referenced.
+译文：I2VA 始终使用上述指令：对于目标视频，在视频的 0.00 秒位置，完整参考属于 [Shot 1] 的 <Picture 1>。
+
+【07｜FL2VA 的固定指令】
+词汇：align /əˈlaɪn/ v. 对齐；reference picture /ˈrefərəns ˈpɪktʃə/ n. phr. 参考图片；mark /mɑːk/ n. 时间标记。
+原模板：
+How the reference pictures align with the target video — Picture 1 (from Shot 1) aligns with the 0.00-second mark of the target video; Picture 2 (from Shot N) aligns with the S.SS-second mark of the target video.
+译文：FL2VA 始终使用上述指令：参考图片与目标视频的对齐方式为——属于 Shot 1 的 Picture 1 对齐目标视频的 0.00 秒位置；属于 Shot N 的 Picture 2 对齐目标视频的 S.SS 秒位置。
+
+【08｜L2VA 的固定指令】
+词汇：align /əˈlaɪn/ v. 对齐；target /ˈtɑːɡɪt/ adj. 目标的；mark /mɑːk/ n. 标记。
+原模板：
+How the reference pictures align with the target video — <Picture 1> (from [Shot N]) aligns with the S.SS-second mark of the target video.
+译文：L2VA 始终使用上述指令：参考图片与目标视频的对齐方式为——属于 [Shot N] 的 <Picture 1> 对齐目标视频的 S.SS 秒位置。
+
+【09｜N 与 S.SS 的意义】
+词汇：index /ˈɪndeks/ n. 索引、编号；actual /ˈæktʃuəl/ adj. 实际的；effective /ɪˈfektɪv/ adj. 有效的；duration /djʊəˈreɪʃən/ n. 时长；format /ˈfɔːmæt/ v. 按规定格式表示；decimal place /ˈdesɪməl pleɪs/ n. phr. 小数位；blank /blæŋk/ adj. 空白的。
+译文：这里的 N 是实际最后一个镜头的编号，S.SS 是严格保留两位小数的有效视频时长。该指令必须位于最终提示词的第一行；其后空一行，再开始核心字段。
+
+2.2 Part Two Contains the Three Core Fields｜第二部分包含三个核心字段
+
+【10｜字段模板】
+词汇：integrated /ˈɪntɪɡreɪtɪd/ adj. 综合的；multimodal /ˌmʌltiˈməʊdəl/ adj. 多模态的；description /dɪˈskrɪpʃən/ n. 描述；overall /ˌəʊvərˈɔːl/ adj. 整体的；soundscape /ˈsaʊndskeɪp/ n. 声景；non-diegetic /ˌnɒn daɪəˈdʒetɪk/ adj. 非故事世界内声音的。
+原模板：
+integrated_multimodal_description: [Shot 1] ...
+
+overall_soundscape: ...
+
+non_diegetic_music: ...
+译文：依次填写“综合多模态描述”“整体声景”和“画外配乐”；字段标识本身不翻译。
+
+【11｜综合多模态描述】
+词汇：visuals /ˈvɪʒuəlz/ n. 视觉画面；action /ˈækʃən/ n. 动作；speaker /ˈspiːkə/ n. 发声者；dialogue /ˈdaɪəlɒɡ/ n. 对白；singing /ˈsɪŋɪŋ/ n. 歌唱；diegetic /ˌdaɪəˈdʒetɪk/ adj. 属于故事世界内的；timeline /ˈtaɪmlaɪn/ n. 时间线。
+译文：integrated_multimodal_description：沿时间线描述视觉画面、动作、镜头、发声者、对白、歌唱以及场景内声音。
+
+【12｜整体声景】
+词汇：summarize /ˈsʌməraɪz/ v. 概括；ambient /ˈæmbiənt/ adj. 环境的；physical /ˈfɪzɪkəl/ adj. 物理的；non-verbal /ˌnɒnˈvɜːbəl/ adj. 非语言的；entire /ɪnˈtaɪə/ adj. 整个的。
+译文：overall_soundscape：概括整段视频的环境声、物理动作声和非语言人声。
+
+【13｜画外配乐】
+词汇：background music /ˈbækɡraʊnd ˈmjuːzɪk/ n. phr. 背景音乐；character /ˈkærəktə/ n. 人物角色；audience /ˈɔːdiəns/ n. 观众。
+译文：non_diegetic_music：描述场景中的人物听不到、只有观众能够听到的背景音乐。
+
+三、How to Incorporate Keyframes into the Multimodal Description｜如何将关键帧融入多模态描述
+
+3.1 I2VA: Begin from the Image and Develop Forward｜从图像出发向后续时刻展开
+
+【14｜首帧与保持项】
+词汇：actual /ˈæktʃuəl/ adj. 实际的；belong /bɪˈlɒŋ/ v. 属于；establish /ɪˈstæblɪʃ/ v. 建立、明确；style /staɪl/ n. 风格；composition /ˌkɒmpəˈzɪʃən/ n. 构图；anchor /ˈæŋkə/ n. 锚点；identity /aɪˈdentəti/ n. 身份；clothing /ˈkləʊðɪŋ/ n. 服装；spatial /ˈspeɪʃəl/ adj. 空间的；consistent /kənˈsɪstənt/ adj. 一致的。
+译文：<Picture 1> 是视频 0.00 秒处的实际首帧，属于 [Shot 1]。描述应先明确图中的风格、主体、构图与场景锚点，然后描述接下来的动作。人物身份、服装、颜色、关键物体和空间关系应保持一致。
+
+【15｜推荐结构】
+词汇：recommended /ˌrekəˈmendɪd/ adj. 推荐的；anchor /ˈæŋkə/ n. 锚点；onset /ˈɒnset/ n. 开始；continuous /kənˈtɪnjuəs/ adj. 连续的；development /dɪˈveləpmənt/ n. 展开；reaction /riˈækʃən/ n. 反应。
+译文：推荐结构：首帧锚点 → 动作开始 → 连续展开 → 结果或反应。
+
+3.2 FL2VA: Describe the Path Between the First and Last Frames｜描述首尾帧之间的路径
+
+【16｜变化维度】
+词汇：opening /ˈəʊpənɪŋ/ n. 开场；ending /ˈendɪŋ/ n. 结尾；subject /ˈsʌbdʒɪkt/ n. 主体；pose /pəʊz/ n. 姿态；manipulate /məˈnɪpjʊleɪt/ v. 操作、摆弄；evolve /ɪˈvɒlv/ v. 演变；lighting /ˈlaɪtɪŋ/ n. 光照；transition /trænˈzɪʃən/ v. 过渡。
+译文：Picture 1 是开场，Picture 2 是结尾。重点写明主体如何移动、姿态如何变化、物体如何被操作、构图如何演变，以及场景或光照如何过渡。
+
+【17｜优先单镜头】
+词汇：favor /ˈfeɪvə/ v. 倾向于；single shot /ˈsɪŋɡəl ʃɒt/ n. phr. 单镜头；interpolate /ɪnˈtɜːpəleɪt/ v. 插值；continuously /kənˈtɪnjuəsli/ adv. 连续地；explicitly /ɪkˈsplɪsɪtli/ adv. 明确地；specify /ˈspesɪfaɪ/ v. 指定；reach /riːtʃ/ v. 到达。
+译文：FL2VA 通常更适合单镜头，以便模型在首帧和尾帧之间连续插值。只有明确指定多个镜头时才使用多镜头。必须在视频结束时，由最后一个 [Shot N] 到达尾帧状态。
+
+【18｜推荐结构】
+词汇：observable /əbˈzɜːvəbəl/ adj. 可观察的；intermediate /ˌɪntəˈmiːdiət/ adj. 中间的；progressively /prəˈɡresɪvli/ adv. 逐步地；narrow /ˈnærəʊ/ v. 缩小；difference /ˈdɪfərəns/ n. 差异。
+译文：推荐结构：首帧状态 → 可观察的中间变化 → 与尾帧的差异逐步缩小 → 尾帧状态。
+
+3.3 L2VA: Infer the Opening and Land on the Image at the End｜推断开场，并在结尾到达图像状态
+
+【19｜尾帧不是天然属于首镜头】
+词汇：final /ˈfaɪnəl/ adj. 最终的；inherently /ɪnˈhɪərəntli/ adv. 内在地、天然地；infer /ɪnˈfɜː/ v. 推断；plausible /ˈplɔːzəbəl/ adj. 合理可信的；intent /ɪnˈtent/ n. 意图；gradually /ˈɡrædʒuəli/ adv. 逐渐地；approach /əˈprəʊtʃ/ v. 接近。
+译文：<Picture 1> 是视频尾帧，属于最后一个 [Shot N]，并非天然属于 Shot 1。根据用户意图和尾帧推断合理的较早状态，再描述人物、物体、摄影机和场景怎样逐渐接近参考图像。
+
+【20｜推荐结构】
+词汇：preceding /prɪˈsiːdɪŋ/ adj. 先前的；explicit /ɪkˈsplɪsɪt/ adj. 明确的；transition /trænˈzɪʃən/ n. 过渡；convergence /kənˈvɜːdʒəns/ n. 收敛、趋近；landing /ˈlændɪŋ/ n. 落定、最终到达。
+译文：推荐结构：合理的先前状态 → 明确的动作与过渡路径 → 在最后一个镜头中逐步趋近 → 最终落定于尾帧。
+
+四、How to Write the Three Shared Core Sections｜如何编写三个通用核心部分
+
+4.1 Develop the Multimodal Description Along the Timeline｜沿时间线展开多模态描述
+
+【21｜正文的信息范围】
+词汇：main body /meɪn ˈbɒdi/ n. phr. 主体正文；correspond /ˌkɒrɪˈspɒnd/ v. 对应；visible /ˈvɪzəbəl/ adj. 可见的；audible /ˈɔːdəbəl/ adj. 可听见的；initial /ɪˈnɪʃəl/ adj. 初始的；appearance /əˈpɪərəns/ n. 外观；prop /prɒp/ n. 道具；reaction /riˈækʃən/ n. 反应；synchronized /ˈsɪŋkrənaɪzd/ adj. 同步的。
+译文：integrated_multimodal_description 是改写提示词的主体。每个细节都应对应可见或可听见的内容：视觉风格、初始构图、主体外观与位置、场景与关键道具、动作与反应、镜头变化、口头语言，以及同步的场景内声音。
+
+【22｜风格与初始构图】
+词汇：overall /ˌəʊvərˈɔːl/ adj. 整体的；cinematic /ˌsɪnəˈmætɪk/ adj. 电影式的；live-action /ˌlaɪv ˈækʃən/ adj. 真人实拍的；animated /ˈænɪmeɪtɪd/ adj. 动画的；CG abbr. Computer Graphics，计算机图形；claymation /kleɪˈmeɪʃən/ n. 黏土动画；watercolor /ˈwɔːtəkʌlə/ n. 水彩；vintage /ˈvɪntɪdʒ/ adj. 复古的；derive /dɪˈraɪv/ v. 从……获取。
+译文：在 [Shot 1] 开始时，说明整体风格和初始构图。常见风格包括 Cinematic（电影式）、live-action（真人实拍）、2D-animated（二维动画）、3D CG（三维计算机图形）、claymation（黏土动画）、watercolor（水彩）和 vintage film（复古胶片）。关键帧任务的风格从参考图像中获取；T2VA 的风格根据用户文字选取。
+
+【23｜开场示例】
+词汇：medium-wide shot /ˈmiːdiəm waɪd ʃɒt/ n. phr. 中全景镜头；frame /freɪm/ v. 将……纳入构图。
+原例：[Shot 1] Live-action, cinematic, a medium-wide shot frames...
+译文：[Shot 1] 真人实拍、电影式画面，中全景镜头将……纳入画面。
+
+4.2 Shots and Cuts｜镜头与切镜
+
+【24｜切镜时间】
+词汇：timestamp /ˈtaɪmstæmp/ n. 时间戳；sequential /sɪˈkwenʃəl/ adj. 按顺序的；strictly /ˈstrɪktli/ adv. 严格地；increasing /ɪnˈkriːsɪŋ/ adj. 递增的；cut /kʌt/ n. 切镜；duration /djʊəˈreɪʃən/ n. 时长。
+译文：不要给第一个镜头添加时间戳。后续镜头依次编号，每个镜头以严格递增、且位于视频时长范围内的切镜时间开始。
+原例：[Shot 2] At 00:03.500, the camera cuts to...
+译文：[Shot 2] 在 00:03.500，画面切换到……
+
+【25｜切镜表达与使用条件】
+词汇：ordinary /ˈɔːdənəri/ adj. 普通的；transition /trænˈzɪʃən/ v. 转场；switch /swɪtʃ/ v. 切换；cross-dissolve /ˌkrɒs dɪˈzɒlv/ n. 交叉叠化；fade /feɪd/ n. 淡入淡出；wipe /waɪp/ n. 划像转场；viewpoint /ˈvjuːpɔɪnt/ n. 观察视点；distance /ˈdɪstəns/ n. 距离；angle /ˈæŋɡəl/ n. 角度；prefer /prɪˈfɜː/ v. 优先采用。
+译文：普通切镜使用 the camera cuts to、the shot cuts to、the shot transitions to、the shot changes to 或 the shot switches to。用户明确要求时，也可以使用交叉叠化、淡入淡出或划像转场。切镜应带来关于主体、空间、状态、视点或时间的新信息。如果只需要改变距离或轻微角度，优先采用摄影机运动。
+
+4.3 Camera Motion: Motion Type + Amplitude + Speed｜运镜：运动类型＋幅度＋速度
+
+【26｜三个维度】
+词汇：motion /ˈməʊʃən/ n. 运动；expression /ɪkˈspreʃən/ n. 表达；dimension /daɪˈmenʃən/ n. 维度；amplitude /ˈæmplɪtjuːd/ n. 幅度；range /reɪndʒ/ n. 范围；compositional /ˌkɒmpəˈzɪʃənəl/ adj. 构图的；speed /spiːd/ n. 速度；pacing /ˈpeɪsɪŋ/ n. 节奏；meaningful /ˈmiːnɪŋfəl/ adj. 有意义的；omit /əʊˈmɪt/ v. 省略。
+译文：完整的运镜表达具有三个维度：运动类型规定摄影机怎样移动，幅度规定构图变化的范围，速度规定变化节奏。只有在幅度和速度具有实际意义时才补充；中等幅度和正常速度通常省略。
+
+【27｜运镜表：逐项释义与翻译】
+词汇／对应完整含义：
+Zoom In /zuːm ɪn/、Zoom Out /zuːm aʊt/ v. phr. 变焦推近／变焦拉远：摄影机机身不动，改变焦距。focal length /ˈfəʊkəl leŋθ/ n. phr. 焦距；stationary /ˈsteɪʃənəri/ adj. 静止的。
+Push In /pʊʃ ɪn/、Pull Out /pʊl aʊt/ v. phr. 向前推进／向后拉离：摄影机向前／向后移动。
+Pan Left /pæn left/、Pan Right /pæn raɪt/ v. phr. 左摇／右摇：摄影机位置不变，镜头方向水平转动。pivot /ˈpɪvət/ v. 绕支点转动；horizontally /ˌhɒrɪˈzɒntəli/ adv. 水平地。
+Truck Left /trʌk left/、Truck Right /trʌk raɪt/ v. phr. 左移／右移：摄影机水平平移。translate /trænzˈleɪt/ v. 此处指平移，而非语言翻译。
+Tilt Up /tɪlt ʌp/、Tilt Down /tɪlt daʊn/ v. phr. 上摇／下摇：摄影机位置不变，镜头方向竖直转动。vertically /ˈvɜːtɪkəli/ adv. 竖直地。
+Pedestal Up /ˈpedɪstəl ʌp/、Pedestal Down /ˈpedɪstəl daʊn/ v. phr. 升机／降机：整台摄影机向上／向下移动。
+Arc Shot /ɑːk ʃɒt/ n. phr. 弧线环绕镜头：摄影机沿主体周围的弧线移动。
+Tracking Shot /ˈtrækɪŋ ʃɒt/ n. phr. 跟拍镜头：摄影机跟随移动中的主体。
+Static Shot /ˈstætɪk ʃɒt/ n. phr. 固定镜头：摄影机位置和镜头保持静止。
+Shake Slightly /ʃeɪk ˈslaɪtli/、Shake Strongly /ʃeɪk ˈstrɒŋli/ v. phr. 轻微抖动／强烈抖动：轻微／强烈的摄影机震动。
+POV abbr. Point of View /pɔɪnt əv vjuː/，主观视点：主体的观察视角。
+Roll Clockwise /rəʊl ˈklɒkwaɪz/、Roll Counterclockwise /rəʊl ˌkaʊntəˈklɒkwaɪz/ v. phr. 顺时针滚转／逆时针滚转：摄影机绕镜头光轴顺时针／逆时针旋转。axis /ˈæksɪs/ n. 轴。
+with small amplitude /smɔːl ˈæmplɪtjuːd/ phr. 小幅度：小范围变化。
+with large amplitude /lɑːdʒ ˈæmplɪtjuːd/ phr. 大幅度：大范围变化。
+at slow speed /sləʊ spiːd/ phr. 以慢速：缓慢移动。
+at fast speed /fɑːst spiːd/ phr. 以快速：快速移动。
+
+【28｜写成自然动作句】
+词汇：natural /ˈnætʃərəl/ adj. 自然的；stack /stæk/ v. 堆叠；separate /ˈsepərət/ adj. 分离的；label /ˈleɪbəl/ n. 标签；sentence /ˈsentəns/ n. 句子；folded /ˈfəʊldɪd/ adj. 折叠的；reveal /rɪˈviːl/ v. 显露；doorway /ˈdɔːweɪ/ n. 门口；exit /ˈeɡzɪt/ v. 离开。
+译文：运镜应作为镜头内的自然英文动作写入正文，而不是在句尾堆叠独立标签。
+原例 1：The camera pushes in with small amplitude at slow speed toward the folded letter in her hands.
+译文：摄影机以小幅度、慢速度，朝她手中折叠的信纸推进。
+原例 2：The camera pans right with large amplitude at fast speed, revealing the open doorway.
+译文：摄影机以大幅度、快速度向右摇，显露敞开的门口。
+原例 3：The camera holds a static shot as the runner exits the frame.
+译文：跑步者离开画面时，摄影机保持固定镜头。
+
+4.4 Speakers, Dialogue, and Singing｜发声者、对白与歌唱
+
+【29｜稳定的发声者编号】
+词汇：produce /prəˈdjuːs/ v. 发出；off-screen /ˌɒfˈskriːn/ adj. 画外的；stable /ˈsteɪbəl/ adj. 稳定的；ID abbr. identifier，标识符；compound /ˈkɒmpaʊnd/ adj. 组合的；vocalize /ˈvəʊkəlaɪz/ v. 发声。
+译文：说话、唱歌或发出画外人声的主体使用 (S1)、(S2) 等稳定编号。多个已经编号的发声者同时说话或唱歌时，使用 (S1,S2) 这样的组合编号。同一发声者跨镜头保持相同编号；从不发声的人物不分配发声者编号。
+
+【30｜首次出现时建立声音身份】
+词汇：identity /aɪˈdentəti/ n. 身份；pitch /pɪtʃ/ n. 音高；timbre /ˈtæmbə/ n. 音色；speaking rate /ˈspiːkɪŋ reɪt/ n. phr. 语速；accent /ˈæksənt/ n. 口音；identifying /aɪˈdentɪfaɪɪŋ/ adj. 用于识别的；delivery /dɪˈlɪvəri/ n. 说话、演唱的表达方式；verbatim /vɜːˈbeɪtɪm/ adv. 逐字地；punctuation /ˌpʌŋktʃuˈeɪʃən/ n. 标点。
+译文：发声者首次出现时，根据视觉和音频上下文提供足够信息，以建立稳定身份，例如角色类型、年龄、性别、是否在画面内、音高、音色、语速或口音。人物识别短语、编号、动作和表达方式放在 <d> 之外；<d> 内只放语言标签和用户实际提供的台词。原始单词和标点必须逐字保留，不得翻译或改写。
+
+【31｜对白示例】
+词汇：quiet /ˈkwaɪət/ adj. 轻柔的；breathy /ˈbreθi/ adj. 带气声的；get off /ɡet ɒf/ v. phr. 下车；station /ˈsteɪʃən/ n. 车站；shout /ʃaʊt/ v. 喊叫；together /təˈɡeðə/ adv. 一起。
+原例：The young woman with a quiet, breathy voice (S1) says: <d>[English] I get off at the next station.</d>
+译文：声音轻柔、带气声的年轻女子 (S1) 说：<d>[English] I get off at the next station.</d> 台词释义：“我下一站下车。”
+原例：The two children (S1,S2) shout together, <d>[English] Wait for us!</d>
+译文：两个孩子 (S1,S2) 一起喊：<d>[English] Wait for us!</d> 台词释义：“等等我们！”
+
+【32｜画外音固定表达】
+词汇：voiceover /ˈvɔɪsəʊvə/ n. 画外音、旁白；exact /ɪɡˈzækt/ adj. 精确的；immediately /ɪˈmiːdiətli/ adv. 紧接着；corresponding /ˌkɒrɪˈspɒndɪŋ/ adj. 对应的；lip /lɪp/ n. 嘴唇；closed /kləʊzd/ adj. 闭合的。
+译文：画外音必须使用精确表达 says in an off-screen voiceover。每一个画外音 <d> 块之后，立即说明相应的画面内人物嘴唇保持闭合。
+原例：The man (S1) says in an off-screen voiceover: <d>[English] I still remember that road.</d> while his lips remain completely closed.
+译文：男子 (S1) 以画外音说道：<d>[English] I still remember that road.</d>，同时他的嘴唇保持完全闭合。台词释义：“我仍然记得那条路。”
+
+【33｜跨切镜与结尾截断】
+词汇：lyrics /ˈlɪrɪks/ n. 歌词；cross /krɒs/ v. 跨越；connecting point /kəˈnektɪŋ pɔɪnt/ n. phr. 衔接点；explicitly /ɪkˈsplɪsɪtli/ adv. 明确地；truncate /trʌŋˈkeɪt/ v. 截断；continuity /ˌkɒntɪˈnjuːəti/ n. 连续性；seamlessly /ˈsiːmləsli/ adv. 无缝地；uninterrupted /ˌʌnɪntəˈrʌptɪd/ adj. 不间断的；audible /ˈɔːdəbəl/ adj. 可听见的。
+译文：同一句对白或歌词跨越切镜时，在前后两部分的衔接点使用 <scenetrans>，并明确说明声音跨切镜连续。说话因视频结束而被截断时，使用 <cutoff>。连续性可用 continues seamlessly across the cut（跨切镜无缝持续）、continues uninterrupted into the next shot（不间断地延续到下一镜头）、carries over from the previous shot（从上一镜头延续过来）或 remains audible across the transition（转场期间仍可听见）表达。
+
+4.5 On-Screen Text｜画内文字
+
+【34｜可见文字的保留】
+词汇：banner /ˈbænə/ n. 横幅；sign /saɪn/ n. 标牌；label /ˈleɪbəl/ n. 标签；subtitle /ˈsʌbtaɪtəl/ n. 字幕；neon /ˈniːɒn/ n. 霓虹；quotation mark /kwəʊˈteɪʃən mɑːk/ n. phr. 引号；verbatim /vɜːˈbeɪtɪm/ adv. 逐字地；glow /ɡləʊ/ v. 发光。
+译文：画面中实际可见的横幅、标牌、标签、字幕或霓虹文字，均放在英文双引号中。原始文字和标点逐字保留，不翻译。
+原例：A red neon sign reading "营业中" glows above the doorway.
+译文：门口上方，一块写着“营业中”的红色霓虹招牌发着光。
+
+4.6 overall_soundscape｜整体声景
+
+【35｜完整规则】
+词汇：continuous paragraph /kənˈtɪnjuəs ˈpærəɡrɑːf/ n. phr. 连贯段落；ambient /ˈæmbiənt/ adj. 环境的；non-verbal /ˌnɒnˈvɜːbəl/ adj. 非语言的；footstep /ˈfʊtstep/ n. 脚步声；fabric /ˈfæbrɪk/ n. 织物；impact /ˈɪmpækt/ n. 碰撞；breathing /ˈbriːðɪŋ/ n. 呼吸；laughter /ˈlɑːftə/ n. 笑声；panting /ˈpæntɪŋ/ n. 喘气；silence /ˈsaɪləns/ n. 静音；N/A abbr. not applicable，不适用。
+译文：用一个连贯段落中的 1—4 个英文句子，概括整段视频中的环境声、物理动作声和非语言人声，例如风、雨、交通、脚步、衣料运动、碰撞、呼吸、笑声或喘气。对白、歌唱和场景内音乐已属于多模态描述，不应在此重复。只有用户明确要求整段视频完全静音时，才使用 N/A。
+
+【36｜声景示例】
+词汇：steady /ˈstedi/ adj. 持续稳定的；tap /tæp/ v. 轻敲；ambience /ˈæmbiəns/ n. 环境底声；entrance bell /ˈentrəns bel/ n. phr. 入口门铃；wet /wet/ adj. 湿的；scrape /skreɪp/ n. 刮擦声。
+原例：overall_soundscape: Steady rain taps against the café windows while low room ambience continues underneath. The entrance bell rings once, followed by wet footsteps and the soft scrape of a chair.
+译文：overall_soundscape：持续的雨水敲打咖啡馆窗户，低沉的室内环境底声在下方延续。入口门铃响一次，随后是湿漉漉的脚步声和椅子轻微的刮擦声。
+
+4.7 non_diegetic_music｜画外配乐
+
+【37｜完整规则】
+词汇：instrumentation /ˌɪnstrəmenˈteɪʃən/ n. 乐器配置；rhythm /ˈrɪðəm/ n. 节奏；dynamic /daɪˈnæmɪk/ adj. 力度变化的；abstract /ˈæbstrækt/ adj. 抽象的；mood /muːd/ n. 情绪；emotional /ɪˈməʊʃənəl/ adj. 情感的；score /skɔː/ n. 配乐；instrument /ˈɪnstrəmənt/ n. 乐器；audible /ˈɔːdəbəl/ adj. 可听见的。
+译文：用 1—3 个英文句子描述人物听不到、只有观众听到的背景音乐。重点写乐器配置、速度、节奏与力度变化，不使用抽象情绪词，也不解释配乐的情感功能。人物能听到的歌唱、乐器演奏、收音机、电视或手机音乐都是场景内事件，应写入多模态描述。没有画外配乐时使用 N/A。
+
+【38｜配乐示例】
+词汇：sparse /spɑːs/ adj. 稀疏的；note /nəʊt/ n. 音符；tempo /ˈtempəʊ/ n. 速度；sustained /səˈsteɪnd/ adj. 持续的；strings /strɪŋz/ n. 弦乐；volume /ˈvɒljuːm/ n. 音量；fade out /feɪd aʊt/ v. phr. 渐弱消失。
+原例：non_diegetic_music: Sparse piano notes at a slow tempo, joined by sustained low strings that gradually increase in volume before fading out.
+译文：non_diegetic_music：慢速、稀疏的钢琴音符中加入持续的低音弦乐，音量逐步增强，随后渐弱消失。
+
+五、Cases｜案例
+
+5.1 Case 1: T2VA｜文生音视频
+
+【39｜案例说明】
+词汇：construct /kənˈstrʌkt/ v. 构建；directly /dəˈrektli/ adv. 直接地；scene /siːn/ n. 场景；character /ˈkærəktə/ n. 人物；consistent /kənˈsɪstənt/ adj. 一致的；intent /ɪnˈtent/ n. 意图。
+译文：没有参考图像时，直接从文本构建完整时间线。可以添加符合用户意图的场景、人物、动作和声音细节。
+
+【40｜案例正文】
+词汇：baker /ˈbeɪkə/ n. 面包师；shutter /ˈʃʌtə/ n. 百叶窗、店铺窗板；bakery /ˈbeɪkəri/ n. 面包店；sunrise /ˈsʌnraɪz/ n. 日出；middle-aged /ˌmɪdəlˈeɪdʒd/ adj. 中年的；raspy /ˈrɑːspi/ adj. 沙哑的；loaf /ləʊf/ n. 一整条面包；counter /ˈkaʊntə/ n. 柜台；batch /bætʃ/ n. 一批；steam /stiːm/ n. 蒸汽；sliced /slaɪst/ adj. 切片的；carry over /ˈkæri ˈəʊvə/ v. phr. 延续。
+译文：integrated_multimodal_description：[Shot 1] 真人实拍、电影式画面，中全景镜头拍摄一名面包师在日出前打开街边小面包店的窗板。摄影机以小幅度慢速推进；这名声音平静、略带沙哑的中年面包师 (S1) 把一条新鲜面包放到木柜台上，说：<d>[English] First batch of the morning.</d> [Shot 2] At 00:05.000，镜头切到切片面包上升起蒸汽的特写，面包师最后几个词的声音从上一镜头延续过来。
+台词释义：First batch of the morning.＝早晨的第一批。
+
+【41｜案例声景】
+词汇：wooden /ˈwʊdən/ adj. 木制的；scrape /skreɪp/ v. 刮擦；tray /treɪ/ n. 托盘；clink /klɪŋk/ v. 发出轻微碰撞声；doorbell /ˈdɔːbel/ n. 门铃；crisp /krɪsp/ adj. 清脆的；slice /slaɪs/ v. 切片。
+译文：overall_soundscape：木窗板在安静街道上刮擦着打开，面包店内托盘轻轻碰响。门铃响一次，随后传来轻脚步声与切面包的清脆声音。
+
+【42｜案例配乐】
+词汇：acoustic guitar /əˈkuːstɪk ɡɪˈtɑː/ n. phr. 原声吉他；pattern /ˈpætən/ n. 音型；moderate /ˈmɒdərət/ adj. 中等的；upright bass /ˈʌpraɪt beɪs/ n. phr. 立式低音提琴；gentle /ˈdʒentəl/ adj. 轻柔的；fade /feɪd/ n. 渐弱。
+译文：non_diegetic_music：中等速度的轻柔原声吉他音型，加入稀疏的低音提琴音符，结尾轻柔渐弱。
+
+5.2 Case 2: I2VA｜首帧图生音视频
+
+【43｜案例说明及指令】
+词汇：instruction /ɪnˈstrʌkʃən/ n. 指令；composition /ˌkɒmpəˈzɪʃən/ n. 构图；starting point /ˈstɑːtɪŋ pɔɪnt/ n. phr. 起点；develop /dɪˈveləp/ v. 展开。
+译文：先写首帧指令，再以 Picture 1 中的主体、构图和场景作为 Shot 1 的起点，随后描述场景如何继续发展。
+固定指令：For the target video, at 0.00 seconds into the target video, <Picture 1> (from [Shot 1]) is fully referenced.
+中文含义：目标视频在 0.00 秒完整参考属于 [Shot 1] 的 <Picture 1>。
+
+【44｜案例正文】
+词汇：rain-covered /reɪn ˈkʌvəd/ adj. 覆满雨水的；preserve /prɪˈzɜːv/ v. 保持；carriage /ˈkærɪdʒ/ n. 车厢；layout /ˈleɪaʊt/ n. 布局；truck right /trʌk raɪt/ v. phr. 摄影机右移；gaze /ɡeɪz/ n. 目光；folded /ˈfəʊldɪd/ adj. 折叠的；passing /ˈpɑːsɪŋ/ adj. 掠过的；reflection /rɪˈflekʃən/ n. 倒影；breathy /ˈbreθi/ adj. 带气声的；crease /kriːs/ n. 折痕。
+译文：integrated_multimodal_description：[Shot 1] 真人实拍、电影式画面，<Picture 1> 中的年轻女子仍坐在覆满雨水的列车窗旁，保持她的外观、服装、座位位置以及车厢布局。她从折叠的信纸抬眼望向掠过的城市灯光时，摄影机以小幅度慢速向右平移。她的倒影在玻璃上移动；这名声音轻柔、带气声的年轻女子 (S1) 说：<d>[English] I get off at the next station.</d> 她沿信纸原有折痕把信折起。
+台词释义：我下一站下车。
+
+【45｜案例声景】
+词汇：wheel /wiːl/ n. 车轮；metallic /məˈtælɪk/ adj. 金属般的；rhythm /ˈrɪðəm/ n. 节奏；ventilation /ˌventɪˈleɪʃən/ n. 通风；hum /hʌm/ n. 嗡鸣；tick /tɪk/ v. 发出细小滴答声；rustle /ˈrʌsəl/ v. 窸窣作响。
+译文：overall_soundscape：列车车轮在低沉的通风嗡鸣下产生稳定的金属节奏。雨水轻敲窗户，她手中的纸张轻轻窸窣作响。
+
+【46｜案例配乐】
+词汇：sustained /səˈsteɪnd/ adj. 持续的；cello /ˈtʃeləʊ/ n. 大提琴；widely spaced /ˈwaɪdli speɪst/ adj. 间隔较大的；tone /təʊn/ n. 乐音；decrease /dɪˈkriːs/ v. 减弱。
+译文：non_diegetic_music：慢速的持续大提琴音，伴以间隔较大的钢琴音，音量逐渐减弱。
+
+5.3 Case 3: FL2VA｜首尾帧生音视频
+
+【47｜案例说明及指令】
+词汇：anchor /ˈæŋkə/ v. 锚定；respectively /rɪˈspektɪvli/ adv. 分别；static /ˈstætɪk/ adj. 静态的；supply /səˈplaɪ/ v. 提供；motion path /ˈməʊʃən pɑːθ/ n. phr. 运动路径；connect /kəˈnekt/ v. 连接。
+译文：两张图像分别锚定开场和结尾。正文不应重复两段静态图像描述，而应提供连接二者的运动路径。下例是一个八秒单镜头。
+固定指令：How the reference pictures align with the target video — Picture 1 (from Shot 1) aligns with the 0.00-second mark of the target video; Picture 2 (from Shot 1) aligns with the 8.00-second mark of the target video.
+中文含义：Shot 1 的 Picture 1 对齐 0.00 秒，Shot 1 的 Picture 2 对齐 8.00 秒。
+
+【48｜案例正文】
+词汇：rain-soaked /reɪn səʊkt/ adj. 被雨淋透的；cyclist /ˈsaɪklɪst/ n. 骑车者；framing /ˈfreɪmɪŋ/ n. 取景；umbrella /ʌmˈbrelə/ n. 雨伞；release /rɪˈliːs/ v. 松开；handle /ˈhændəl/ n. 把手；runner /ˈrʌnə/ n. 此处指伞的滑动开合套；canopy /ˈkænəpi/ n. 伞面；expanding /ɪkˈspændɪŋ/ adj. 正在展开的；rotate /rəʊˈteɪt/ v. 转动；settle /ˈsetəl/ v. 落定；spacing /ˈspeɪsɪŋ/ n. 间距。
+译文：integrated_multimodal_description：[Shot 1] 真人实拍、电影式画面，一名被雨淋湿的骑车女子从 Picture 1 所确定的位置和取景开始，站在银色自行车旁，拿着一把收拢的黑伞。她松开自行车把手、把伞举到肩上方，并向上推伞的滑动开合套，直到伞面打开；与此同时摄影机以小幅度慢速后拉。水珠从展开的伞布上滚落；她迈到伞下，将伞柄转到最终角度，并在镜头结束时落定为 Picture 2 中规定的姿态、间距和构图。
+
+【49｜案例声景】
+词汇：pavement /ˈpeɪvmənt/ n. 铺装路面；metallic click /məˈtælɪk klɪk/ n. phr. 金属咔嗒声；snap /snæp/ n. 啪的一声；drip /drɪp/ v. 滴落；bicycle frame /ˈbaɪsɪkəl freɪm/ n. phr. 自行车车架；distant /ˈdɪstənt/ adj. 远处的；traffic /ˈtræfɪk/ n. 交通车辆。
+译文：overall_soundscape：雨水持续落在路面上，随后是雨伞滑套的金属咔嗒声与伞面打开时轻柔的啪声。水从自行车车架上滴落，远处车辆驶过。
+
+【50｜案例配乐】
+词汇：non-diegetic music /ˌnɒn daɪəˈdʒetɪk ˈmjuːzɪk/ n. phr. 画外配乐；N/A abbr. not applicable，不适用。
+译文：non_diegetic_music: N/A。此例没有画外配乐，不表示整段视频无声。
+
+5.4 Case 4: L2VA｜尾帧生音视频
+
+【51｜案例说明及指令】
+词汇：anchor /ˈæŋkə/ v. 锚定；compatible /kəmˈpætəbəl/ adj. 相容的；earlier /ˈɜːliə/ adj. 较早的；object state /ˈɒbdʒɪkt steɪt/ n. phr. 物体状态；gradually /ˈɡrædʒuəli/ adv. 逐渐地；land on /lænd ɒn/ v. phr. 最终到达。
+译文：图像只锚定最终时刻。先建立与之相容的较早状态，再让动作、物体状态与构图在最后一个镜头中逐步到达 Picture 1 的状态。下例是一个六秒单镜头。
+固定指令：How the reference pictures align with the target video — <Picture 1> (from [Shot 1]) aligns with the 6.00-second mark of the target video.
+中文含义：[Shot 1] 的 <Picture 1> 对齐视频的 6.00 秒位置。
+
+【52｜案例正文】
+词汇：intact /ɪnˈtækt/ adj. 完整未损的；drinking glass /ˈdrɪŋkɪŋ ɡlɑːs/ n. phr. 玻璃杯；edge /edʒ/ n. 边缘；sleeve /sliːv/ n. 袖子；fingertip /ˈfɪŋɡətɪp/ n. 指尖；rim /rɪm/ n. 杯口边缘；tip /tɪp/ v. 倾倒；impact /ˈɪmpækt/ n. 撞击；crack /kræk/ n. 裂纹；fragment /ˈfræɡmənt/ n. 碎片；momentum /məˈmentəm/ n. 动量；arrangement /əˈreɪndʒmənt/ n. 排列。
+译文：integrated_multimodal_description：[Shot 1] 真人实拍、电影式画面，近景从深色木桌边缘一个完整玻璃杯开始；<Picture 1> 中可见的同一只手和同样的袖子从右侧接近。指尖碰击杯沿时，摄影机以小幅度慢速推进。杯子倾倒、落下，并以一声尖锐的撞击落地；裂纹扩展，碎片向外滑开。临近结尾，运动中的碎片失去动量，最终落定为 <Picture 1> 所规定的准确破碎排列、手的位置、摄影机角度、光照和最终构图。
+
+【53｜案例声景】
+词汇：tap /tæp/ v. 轻敲；scrape /skreɪp/ v. 刮擦；tabletop /ˈteɪbəltɒp/ n. 桌面；sharp crash /ʃɑːp kræʃ/ n. phr. 尖锐的破裂撞击声；scatter /ˈskætə/ v. 四散；slide /slaɪd/ v. 滑动。
+译文：overall_soundscape：指尖轻敲玻璃杯，随后杯子刮过桌面、落下，并发出尖锐的破碎声。小碎片四散，逐渐停止在地面上滑动。
+
+【54｜案例配乐】
+词汇：electronic /ɪˌlekˈtrɒnɪk/ adj. 电子的；pulse /pʌls/ n. 脉冲、脉动音；tempo /ˈtempəʊ/ n. 速度；immediately /ɪˈmiːdiətli/ adv. 立即。
+译文：non_diegetic_music：慢速、低沉的电子脉动音，在杯子破碎后立即结束。
+
+译注：源文件 T2VA 案例正文提到台词跨镜头延续，但没有实际展示 <scenetrans>；本译本保留该原例，不擅自修改规则或补写成原文内容。
