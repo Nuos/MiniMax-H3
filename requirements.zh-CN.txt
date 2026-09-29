@@ -1,0 +1,71 @@
+# MiniMax H3 requirements.txt｜逐段注释译本
+# 源文件：同目录 requirements.txt
+# 源版本：d21241f0a4b3acbb34c97dae47fa417b7065e438
+# 源 Git blob：7f5c20cc4209924d4b3db2f29b0df8b5e0496270
+# 本文件保留所有依赖条目，中文释义全部写为注释；不覆盖源文件。
+# 此处忠实翻译固定版本注释，不等于确认这些最低版本实际足以运行 H3。
+# 未运行安装、CUDA/MPS 兼容测试或模型推理。n. 名词；v. 动词；adj. 形容词；abbr. 缩写。
+
+# 01｜文件用途
+# 词汇：dependency /dɪˈpendənsi/ n. 依赖项；inference /ˈɪnfərəns/ n. 模型推理；bundle /ˈbʌndəl/ n. 软件包。
+# 译文：MiniMax H3 推理包的 Python 依赖。
+
+# 02｜发布格式与版本固定
+# 词汇：release /rɪˈliːs/ v. 发布；pipeline /ˈpaɪplaɪn/ n. 流水线；consume /kənˈsjuːm/ v. 调用、使用；rely /rɪˈlaɪ/ v. 依赖；build /bɪld/ n. 构建版本；ship /ʃɪp/ v. 随版本提供；class /klɑːs/ n. 类；pin /pɪn/ v. 固定版本；known-good /nəʊn ɡʊd/ adj. 已知可用的；wheel /wiːl/ n. Python 预构建分发包。
+# 术语：CUDA = Compute Unified Device Architecture，统一计算设备架构；MPS = Metal Performance Shaders，Metal 性能着色器。
+# 译文：模型以 Hugging Face diffusers 流水线发布，并通过 trust_remote_code=True 使用，因此依赖包含 MiniMax-H3 模型类的 diffusers 构建版本。应固定已知可用的 diffusers 版本，以及包含运行所需 CUDA／MPS wheel 的 torch 版本。
+# 原文问题记录：https://github.com/MiniMax-AI/MiniMax-H3/issues/3
+
+# 03｜核心深度学习依赖
+# 词汇：core /kɔː/ adj. 核心的；deep-learning stack /diːp ˈlɜːnɪŋ stæk/ n. phr. 深度学习软件栈；stable /ˈsteɪbəl/ adj. 稳定的；major /ˈmeɪdʒə/ n. 主版本；exact /ɪɡˈzækt/ adj. 精确的；tighter /ˈtaɪtə/ adj. 更严格的。
+# 译文：核心深度学习软件栈。torch 保持为较新的稳定主版本范围；若需要精确的 CUDA 构建，应更严格地固定版本，例如 torch==2.4.1+cu121。
+torch>=2.4.0
+
+# 04｜diffusers
+# 词汇：modular /ˈmɒdjʊlə/ adj. 模块化的；official /əˈfɪʃəl/ adj. 官方的；branch /brɑːntʃ/ n. 分支；addition /əˈdɪʃən/ n. 新增项；upper bound /ˈʌpə baʊnd/ n. phr. 上界；accordingly /əˈkɔːdɪŋli/ adv. 相应地；source /sɔːs/ n. 源代码；PyPI = Python Package Index，Python 包索引。
+# 译文：H3 流水线／模块化流水线需要 diffusers。官方文档引用 diffusers 的 minimax-h3 分支以取得最新新增类；这些内容发布到 PyPI 后，应相应收紧版本上界。在此之前从源代码安装：
+# pip install "git+https://github.com/huggingface/diffusers.git@minimax-h3"
+diffusers>=0.32.2
+
+# 05｜transformers
+# 词汇：text encoder /tekst ɪnˈkəʊdə/ n. phr. 文本编码器；processor /ˈprəʊsesə/ n. 处理器；tokenizer /ˈtəʊkənaɪzə/ n. 分词器；support /səˈpɔːt/ n. 支持。
+# 译文：transformers 提供 H3 流水线使用的 Qwen3-VL 文本编码器、处理器与分词器。原注释认为此处通常越新越好，并写明保留 >=4.45 以获得 Qwen3-VL 支持。
+# 译注：上一句的版本兼容断言属于源文件，未由本次翻译验证；不要仅凭该最低版本声明判断环境可运行。
+transformers>=4.45.0
+
+# 06｜safetensors
+# 词汇：load /ləʊd/ v. 加载；weight /weɪt/ n. 权重；directly /dəˈrektli/ adv. 直接地；VAE = Variational Autoencoder，变分自编码器。
+# 译文：safetensors 用于直接加载 VAE／Transformer 权重。
+safetensors>=0.4.3
+
+# 07｜accelerate
+# 词汇：device map /dɪˈvaɪs mæp/ n. phr. 设备映射；multi-GPU /ˌmʌlti dʒiː piː juː/ adj. 多图形处理器的；visual /ˈvɪʒuəl/ adj. 视觉的；GPU = Graphics Processing Unit，图形处理器。
+# 译文：330 亿参数 Omni-Transformer 与视觉 VAE 的 device_map／多 GPU 加载需要 accelerate。
+accelerate>=0.34.0
+
+# 08｜huggingface_hub
+# 词汇：provide /prəˈvaɪd/ v. 提供；download /ˌdaʊnˈləʊd/ v. 下载；checkpoint /ˈtʃekpɔɪnt/ n. 检查点；CLI = Command-Line Interface，命令行界面。
+# 译文：huggingface_hub 提供下载模型检查点使用的 hf 命令行工具，即 README 中的 hf download MiniMaxAI/MiniMax-H3 ...。
+huggingface_hub>=0.25.0
+
+# 09｜numpy
+# 词汇：audio /ˈɔːdiəʊ/ n. 音频；video /ˈvɪdiəʊ/ n. 视频；code /kəʊd/ n. 代码。
+# 译文：音频／视频 VAE 代码广泛使用 numpy。
+numpy>=1.24.0
+
+# 10｜Pillow
+# 词汇：image decoding /ˈɪmɪdʒ diːˈkəʊdɪŋ/ n. phr. 图像解码；required /rɪˈkwaɪəd/ adj. 必需的。
+# 译文：Qwen3-VL 处理器需要 Pillow 进行图像解码。
+Pillow>=10.0.0
+
+# 11｜音频输入输出
+# 词汇：I/O = Input/Output，输入／输出；stereo /ˈsteriəʊ/ adj. 立体声的；tensor /ˈtensə/ n. 张量；writer /ˈraɪtə/ n. 写入工具；optional /ˈɒpʃənəl/ adj. 可选的；resampling /ˌriːˈsɑːmplɪŋ/ n. 重采样。
+# 译文：音频 VAE 返回 32 kHz 立体声张量。推荐用 soundfile 写入；librosa 为可选工具，但对于重采样很有用。
+soundfile>=0.12.0
+
+# 12｜视频输入输出
+# 词汇：helper /ˈhelpə/ n. 辅助工具；integration /ˌɪntɪˈɡreɪʃən/ n. 集成。
+# 译文：diffusers／ComfyUI 集成中使用的视频输入输出辅助依赖。
+imageio>=2.34.0
+imageio-ffmpeg>=0.5.0
+av>=11.0.0
